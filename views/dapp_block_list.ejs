@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />  
+</head>
+<body>
+  <a href="/dapp/index">home</a>
+  <table class="table" border="1">
+    <thead>
+      <tr>
+        <th>number</th>
+        <th>hash</th>
+        <th>parentHash</th>
+        <th>nonce</th>
+        <th>timestamp</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% rows.forEach(function(tmp) { %>
+      <tr>
+        <td><%= tmp.number %></td>
+        <td><%= tmp.hash %></td>
+        <td><%= tmp.parentHash %></td>
+        <td><%= tmp.nonce %></td>
+        <td><%= new Date(tmp.timestamp*1000) %></td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>

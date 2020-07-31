@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <a href="/session/index">홈으로</a>
+    <table class="table" border="1">
+      <thead>
+        <tr>
+          <th>아이디</th>
+          <th>이름</th>
+          <th>연락처</th>
+          <th>address</th>
+          <th>pk(비권장)</th>
+          <th>등록일</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% list.forEach(function(tmp) { %>
+        <tr>
+          <td><%= tmp.userid %></td>
+          <td><%= tmp.username %></td>
+          <td><%= tmp.userphone %></td>
+          <td class="td_a"><%= tmp.useraddress %></td>
+          <td class="td_c"><%= tmp.userprivatekey %></td>
+          <td><%= tmp.joindate %></td>
+          <td>
+            <a href="#" class="a_a">잔고확인</a>
+            <a href="#" class="a_b">이더전송</a>
+            <a href="#" class="a_c">컨트랙트배포</a>
+            <a href="#" class="a_d">컨트랙트읽기</a>
+            <a href="#" class="a_e">컨트랙트변경</a>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+		$(function(){
+
+      // 계약서 읽기
+      $('.a_d').click(function(){
+        var idx  = $(this).index('.a_d'); //idx 클릭한 번호
+        var addr = $('.td_a').eq(idx).text() //address가져오기
+        var pk   = $('.td_c').eq(idx).text()
+        $.get('/session/get_contract?addr=' + addr + '&pk=' + pk, function(data){
+          alert(data.txHash)
+          console.log(data)
+        },'json');
+      });
+
+      // 계약서 변경
+      $('.a_e').click(function(){
+        var idx  = $(this).index('.a_e'); //idx 클릭한 번호
+        var addr = $('.td_a').eq(idx).text() //address가져오기
+        var pk   = $('.td_c').eq(idx).text() //privatekey가져오기
+        $.get('/session/set_contract?addr=' + addr + '&pk=' + pk, function(data){
+          alert(data.txHash)
+          console.log(data)
+        },'json');
+      });
+
+      // 계약서 배포
+      $('.a_c').click(function(){
+        var idx  = $(this).index('.a_c'); //idx 클릭한 번호
+        var addr = $('.td_a').eq(idx).text() //address가져오기
+        var pk   = $('.td_c').eq(idx).text() //privatekey가져오기
+        $.get('/session/deploy_contract?addr=' + addr + '&pk=' + pk, function(data){
+          alert(data.txHash)
+          console.log(data)
+        },'json');
+      });
+
+
+      //잔고 확인
+      $('.a_a').click(function(){
+        var idx = $(this).index('.a_a'); //idx 클릭한 번호
+        var addr = $('.td_a').eq(idx).text()
+        console.log(idx, addr)
+        $.get('/session/get_balance?addr='+addr, function(data){
+          alert(data.bal)
+          console.log(data)
+        },'json');
+      });
+
+    });
+  </script>
+</body>
+</html>

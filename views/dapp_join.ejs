@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+		<a href="/dapp/index">home</a>
+		<h3><%= title %></h3>
+	 	<form action="/dapp/join" method="post"> 
+	  	아이디 : <input type="text" name="userid" /><br />
+	  	암호 : <input type="password" name="userpw" /><br />
+	  	암호확인 : <input type="password" name="userpw1" /><br />
+	  	이름 : <input type="text" name="username" /><br />
+	  	<input type="submit"  value="회원가입" />
+  	</form>
+  	
+  </body>  
+</html>

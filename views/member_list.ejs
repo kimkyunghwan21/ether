@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title><%= title %></title>
+</head>
+<body>
+  <div class="container">
+    <a href="/member/join">회원추가</a>
+    <table class="table" border="1">
+      <thead>
+        <tr>
+          <th>아이디</th>
+          <th>암호</th>
+          <th>이름</th>
+          <th>버튼</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% list.forEach(function(tmp) { %>
+        <tr>
+          <td><%= tmp.userid %></td>
+          <td><%= tmp.userpw %></td>
+          <td><%= tmp.username %></td>
+          <td>
+            <a href="/member/delete?id=<%= tmp.userid %>">삭제</a>
+            <a href="/member/update?id=<%= tmp.userid %>">수정</a>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

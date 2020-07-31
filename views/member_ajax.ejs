@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title><%= title %></title>
+
+</head>
+
+<body>
+  <h3>front-end영역</h3>
+  <h3>iot</h3>
+  <h3>smart phone</h3>
+
+  <div class="container">
+   
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+    $(function(){
+       $.get('/member/list.json',function(data){
+        console.log(data);
+        console.log(data.ret);
+        var a = data.data; //[ {  },{  }, {  } ]
+        for (var i=0;i<a.length; i++){
+          console.log(a[i].userid, a[i].userpw)
+        }
+
+       },'json');
+    })
+  </script>
+
+</body>
+</html>

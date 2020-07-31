@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>회원채팅</title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+		<input type="text" id="user" />
+		<input type="button" id="btn1" value="접속하기" />
+
+		<input type="text" id="txt" />
+		<input type="button" id="btn" value="보내기" />
+		
+		<textarea rows="10" style="width:100%" id="output"></textarea>
+
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script src="http://192.168.99.100:31004/socket.io/socket.io.js"></script>
+		<script>
+			$(function(){
+				var socket = io.connect('http://192.168.99.100:31004')	
+				console.log(socket)
+
+				var u1; 
+				socket.on('connect', function(){
+					$('#btn1').click(function(){ //접속
+						u1 = $('#user').val()
+						socket.emit('init',{id:u1})
+					})
+
+					$('#btn').click(function(){ //대화내용
+						var t1 = $('#txt').val()	
+						socket.emit('publish',{id:u1, msg:t1})
+					});
+
+					//서버로 부터 값이 오면	
+					socket.on('subscribe', function(data){
+						var t2 = $('#output').val();
+						$('#output').val(data.id + ' - ' + data.msg + "\n" + t2)	
+					});
+
+				})
+
+			})
+		</script>	
+  </body>  
+</html>

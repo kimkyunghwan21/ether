@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+
+  <body>
+    <h3>블록정보</h3>
+    <table id="table" border="1">
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="http://192.168.99.100:31004/socket.io/socket.io.js"></script>
+    <script>
+			$(function(){
+        var socket = io.connect('http://192.168.99.100:31004')	
+        console.log(socket);
+        socket.on('connect', function(){ //접속이 되어 있고
+          socket.on('subscribe', function(data){ //서버로 부터 값이 오면
+            console.log(data);
+            $('#table').prepend(
+              '<tr>' +
+                '<td>' + data.msg.number     + '</td>' +
+                '<td>' + data.msg.hash       + '</td>' +
+                '<td>' + data.msg.parentHash + '</td>' +
+              '</tr>');
+          });  
+        });
+			})
+		</script>
+   </body> 
+</html>
+
+
+
+
+<!-- console.log(socket)
+
+        socket.on('connect', function(){
+          $('#btn1').click(function(){ //접속
+						u1 = $('#user').val()
+						socket.emit('init',{id:u1})
+					})
+          //서버로 부터 값이 오면	
+					socket.on('subscribe', function(data){
+            console.log(data);
+						var t2 = $('#output').val();
+						$('#output').val(data.msg.hash + "\n" + t2)	
+					});
+        });
+        /*  
+				var u1; 
+				socket.on('connect', function(){
+					$('#btn1').click(function(){ //접속
+						u1 = $('#user').val()
+						socket.emit('init',{id:u1})
+					})
+
+					$('#btn').click(function(){ //대화내용
+						var t1 = $('#txt').val()	
+						socket.emit('publish',{id:u1, msg:t1})
+					});
+
+					//서버로 부터 값이 오면	
+					socket.on('subscribe', function(data){
+						var t2 = $('#output').val();
+						$('#output').val(data.id + ' - ' + data.msg + "\n" + t2)	
+					});
+				});
+        */ -->

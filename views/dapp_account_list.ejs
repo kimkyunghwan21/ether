@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />  
+</head>
+<body>
+  <a href="/dapp/index">home</a>
+  <table class="table" border="1">
+    <thead>
+      <tr>
+        <th>주소</th>
+        <th>잔고</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% rows.forEach(function(tmp) { %>
+      <tr>
+        <td><%= tmp.address %></td>
+        <td><%= tmp.balance %></td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>
